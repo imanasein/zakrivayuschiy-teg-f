@@ -13,4 +13,6 @@
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  font-family: var(--inter, sans-serif);
+  font-variation-settings: 'wght' var(--regular, 410);  /* нужно ли указывать запасное значение переменной? */
 }
