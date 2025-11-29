@@ -18,11 +18,13 @@
     font-family: var(--inter, sans-serif);
     font-variation-settings: "wght" var(--regular, 410); /* нужно ли указывать запасное значение переменной? */
     font-size: 18px;
+    line-height: 116.6%;  /* или 21 px */
     color: var(--main-color, #000); /* нужно ли указывать запасное значение переменной? */
     background-image: var(--background-image);
     background-attachment: fixed; /* фиксируем при прокрутке фон страницы */
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .frame {
@@ -49,6 +51,7 @@
 
 .logo {
     font-size: var(--logo-height, 49px);
+    text-transform: uppercase;
 }
 
 .title {
@@ -79,31 +82,31 @@
     object-position: center;
 }
 
-.cards-list-item:nth-child(2) .card__image-item {
+.filter-one {
     filter: grayscale(0.6);
 }
 
-.cards-list-item:nth-child(3) .card__image-item {
+.filter-two {
     filter: saturate(400%);
 }
 
-.cards-list-item:nth-child(4) .card__image-item {
+.filter-three {
     filter: hue-rotate(30deg);
 }
 
-.cards-list-item:nth-child(5) .card__image-item {
+.filter-four {
     filter: invert(80%);
 }
 
-.cards-list-item:nth-child(6) .card__image-item {
+.filter-five {
     filter: sepia(90%);
 }
 
-.cards-list-item:nth-child(7) .card__image-item {
+.filter-six {
     filter: blur(20px);
 }
 
-.cards-list-item:nth-child(8) .card__image-item {
+.filter-mix {
     filter: hue-rotate(90deg) blur(2px) contrast(50%) brightness(120%);
 }
 
@@ -115,16 +118,15 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 100%;
+    text-transform: uppercase;
     mix-blend-mode: hard-light; /* проверить сюда или изображению ??? */
     opacity: 0.5;
-}
-
-.card__image-symbol {
     text-shadow: 1px 1px var(--text-shadow-color, #fff);
 }
 
 @supports ((text-stroke: 1px var(--text-shadow-color)) or (-webkit-text-stroke: 1px var(--text-shadow-color))) {
     .card__image-symbol {
+        text-shadow: none;
         -webkit-text-stroke: 1px var(--text-shadow-color, #fff);
     }
 }
@@ -146,30 +148,118 @@
     font-family: var(--pressstart2p, monospace);
     font-size: 14px;
     font-weight: 400;
-    line-height: 90%;
+    line-height: 90%; 
+    mix-blend-mode: difference;    /*  1  голову ломал целый день из-за этого долбаного свойства !!!! */ 
+    color: var(--main-color-negative);                /*  меняем цвет на противоположный для корректной работы свойства смешивания !!!  */
 }
 
 .card__like-button {
-    padding: 12.5px 37px;
-    cursor: pointer;
+    inline-size: 138px;
+    padding-block: 12.5px;
+    background-color: transparent;  
 }
 
-.card__like-button:hover {
-    background-color: var(--main-color, #000);
-    color: var(--main-color-negative, #fff);
+.button {
+    position: relative;  
+    cursor: pointer;       
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;   /* !!! плавное появление тени кнопки !!! */
 }
 
-.card__like-button:focus {
+.button::before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: -100%; /* Исходное положение псевдоэлемента за левым краем кнопки */
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-color);  /* цвет шторки  */ 
+    transition: transform 0.5s ease-in-out; /* Параметры перехода */
+}
+
+.button:hover::before {
+    transform: translateX(100%); /* При наведении переводит псевдоэлемент на правую границу кнопки */
+}
+
+.button:focus {
     outline: none;
 }
 
-.card__like-button:focus-visible {
+.button:focus-visible {
     box-shadow: 2px 2px var(--main-color, #000);
-    transition: box-shadow 0.3s ease;
+}
+
+.card__icon-button {
+    border: 2px solid transparent;        
+    background-color: transparent;       /* убираем браузерные стили */
+    cursor: pointer;
+    transition: border-color 0.3s ease;      /* убедиться в плавности появления и снятия */
+}
+
+.card__icon-button:focus {
+    outline: none;
+}
+
+.card__icon-button:focus-visible {
+    border-color: var(--main-color, #000);
+}
+
+.contour {
+    transition: fill 0.1s linear;   /* быстрый */ 
+}
+
+.core {
+    transition: fill 0.3s linear 0.03s;  /* с задержкой 0,03сек  */ 
+}
+
+.main-body {
+    transition: fill 0.3s linear; /* без задержки */ 
+}
+
+.sparks {
+    opacity: 0;
+}
+
+.like-icon:hover .core {
+    fill: var(--main-color);
+    transition: fill 0.3s linear;   /* в состоянии ховер без задержки */ 
+}
+
+.like-icon:hover .main-body {
+    fill: var(--heart-main-body-color);
+    transition: fill 0.3s linear 0.05s;   /* с задержкой 0,05сек  */
+}
+
+.like-icon:active .core {
+    fill: var(--animation-fill-color);
+    transition: fill 0.3s linear;
+}
+
+.like-icon:active .main-body {
+    fill: var(--animation-fill-color);
+    transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon.is-liked .core {
+    fill: var(--animation-fill-color);  
+    transition: fill 0.3s linear;
+}
+
+.like-icon.is-liked .main-body {
+    fill: var(--animation-fill-color);
+    transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon.is-liked .contour {
+     fill: var(--animation-fill-color);
+     transition: fill 0.3s linear 0.06s; /* изменена длительность и задержка */
+}
+.like-icon {
+    transform-origin: center;       /* для анимации чтобы происходила от центра  */
 }
 
 .cards-list-item:not(:last-child) {
-    margin-bottom: 52px;
+    margin-bottom: 52px;  /*  уточнить ????  */
 }
 
 .save-memories {
@@ -180,21 +270,38 @@
 }
 
 .button_save {
-    inline-size: var(--button-save-width,306px);
     padding: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
 }
 
-dialog::backdrop {
-    background-color: rgb(0 0 0 / 0.8);
-    /*  backdrop-filter: blur(7px);  */
+.floppy-image {
+    color: #fff;
+    mix-blend-mode: difference;   /* для перекрашивания svg при наезде псевдоэлемента  */
+    width: 21px;
+    height: 21px;
+}
+
+.floppy-xl {
+    width: 39px;
+    height: 39px;
 }
 
 .insert__floppy {
     padding: 30px;
-    min-width: 353px;
+    max-inline-size: 353px;
+}
+
+.insert__floppy[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.insert__floppy::backdrop {
+    background-color: rgb(0 0 0 / 0.8);
 }
 
 .capitals {
@@ -210,5 +317,16 @@ dialog::backdrop {
 
 .button_save_positive {
     padding-block: 12.5px;
-    width: 100%;
+    inline-size: 100%;
+    cursor: pointer;
+}
+
+@media (width <= 376px) { /* не работает на 375px а на !!!!   */ 
+    .button_save {
+        flex-direction: column; 
+    }
+    .floppy-image {
+        width: 28px;
+        height: 28px;
+    }
 }
