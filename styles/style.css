@@ -18,7 +18,7 @@
     font-family: var(--inter, sans-serif);
     font-variation-settings: "wght" var(--regular, 410); /* нужно ли указывать запасное значение переменной? */
     font-size: 18px;
-    line-height: 116.6%;  /* или 21 px */
+    line-height: 116.6%; /* или 21 px */
     color: var(--main-color, #000); /* нужно ли указывать запасное значение переменной? */
     background-image: var(--background-image);
     background-attachment: fixed; /* фиксируем при прокрутке фон страницы */
@@ -75,7 +75,7 @@
 }
 
 .card__image-item {
-    display: block;   /* по умолчанию тег img inline! */ 
+    display: block; /* по умолчанию тег img inline! */
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -148,22 +148,24 @@
     font-family: var(--pressstart2p, monospace);
     font-size: 14px;
     font-weight: 400;
-    line-height: 90%; 
-    mix-blend-mode: difference;    /*  1  голову ломал целый день из-за этого долбаного свойства !!!! */ 
-    color: var(--main-color-negative);                /*  меняем цвет на противоположный для корректной работы свойства смешивания !!!  */
+    line-height: 90%;
+    mix-blend-mode: difference; /*  1  голову ломал целый день из-за этого долбаного свойства !!!! */
+    color: var(
+        --main-color-negative
+    ); /*  меняем цвет на противоположный для корректной работы свойства смешивания !!!  */
 }
 
 .card__like-button {
     inline-size: 138px;
     padding-block: 12.5px;
-    background-color: transparent;  
+    background-color: transparent;
 }
 
 .button {
-    position: relative;  
-    cursor: pointer;       
+    position: relative;
+    cursor: pointer;
     overflow: hidden;
-    transition: box-shadow 0.3s ease;   /* !!! плавное появление тени кнопки !!! */
+    transition: box-shadow 0.3s ease; /* !!! плавное появление тени кнопки !!! */
 }
 
 .button::before {
@@ -173,7 +175,7 @@
     left: -100%; /* Исходное положение псевдоэлемента за левым краем кнопки */
     width: 100%;
     height: 100%;
-    background-color: var(--main-color);  /* цвет шторки  */ 
+    background-color: var(--main-color); /* цвет шторки  */
     transition: transform 0.5s ease-in-out; /* Параметры перехода */
 }
 
@@ -190,10 +192,10 @@
 }
 
 .card__icon-button {
-    border: 2px solid transparent;        
-    background-color: transparent;       /* убираем браузерные стили */
+    border: 2px solid transparent;
+    background-color: transparent; /* убираем браузерные стили */
     cursor: pointer;
-    transition: border-color 0.3s ease;      /* убедиться в плавности появления и снятия */
+    transition: border-color 0.3s ease; /* убедиться в плавности появления и снятия */
 }
 
 .card__icon-button:focus {
@@ -205,15 +207,15 @@
 }
 
 .contour {
-    transition: fill 0.1s linear;   /* быстрый */ 
+    transition: fill 0.1s linear; /* быстрый */
 }
 
 .core {
-    transition: fill 0.3s linear 0.03s;  /* с задержкой 0,03сек  */ 
+    transition: fill 0.3s linear 0.03s; /* с задержкой 0,03сек  */
 }
 
 .main-body {
-    transition: fill 0.3s linear; /* без задержки */ 
+    transition: fill 0.3s linear; /* без задержки */
 }
 
 .sparks {
@@ -222,12 +224,12 @@
 
 .like-icon:hover .core {
     fill: var(--main-color);
-    transition: fill 0.3s linear;   /* в состоянии ховер без задержки */ 
+    transition: fill 0.3s linear; /* в состоянии ховер без задержки */
 }
 
 .like-icon:hover .main-body {
     fill: var(--heart-main-body-color);
-    transition: fill 0.3s linear 0.05s;   /* с задержкой 0,05сек  */
+    transition: fill 0.3s linear 0.05s; /* с задержкой 0,05сек  */
 }
 
 .like-icon:active .core {
@@ -241,7 +243,7 @@
 }
 
 .like-icon.is-liked .core {
-    fill: var(--animation-fill-color);  
+    fill: var(--animation-fill-color);
     transition: fill 0.3s linear;
 }
 
@@ -251,15 +253,15 @@
 }
 
 .like-icon.is-liked .contour {
-     fill: var(--animation-fill-color);
-     transition: fill 0.3s linear 0.06s; /* изменена длительность и задержка */
+    fill: var(--animation-fill-color);
+    transition: fill 0.3s linear 0.06s; /* изменена длительность и задержка */
 }
 .like-icon {
-    transform-origin: center;       /* для анимации чтобы происходила от центра  */
+    transform-origin: center; /* для анимации чтобы происходила от центра  */
 }
 
 .cards-list-item:not(:last-child) {
-    margin-bottom: 52px;  /*  уточнить ????  */
+    margin-bottom: 52px; /*  уточнить ????  */
 }
 
 .save-memories {
@@ -279,19 +281,19 @@
 
 .floppy-image {
     color: #fff;
-    mix-blend-mode: difference;   /* для перекрашивания svg при наезде псевдоэлемента  */
+    mix-blend-mode: difference; /* для перекрашивания svg при наезде псевдоэлемента  */
     width: 21px;
     height: 21px;
-}
-
-.floppy-xl {
-    width: 39px;
-    height: 39px;
 }
 
 .insert__floppy {
     padding: 30px;
     max-inline-size: 353px;
+}
+
+.floppy-image-xl {
+    block-size: 39px;
+    inline-size: 39px;
 }
 
 .insert__floppy[open] {
@@ -321,9 +323,9 @@
     cursor: pointer;
 }
 
-@media (width <= 376px) { /* не работает на 375px а на !!!!   */ 
+@media (width <= 376px) {
     .button_save {
-        flex-direction: column; 
+        flex-direction: column;
     }
     .floppy-image {
         width: 28px;
